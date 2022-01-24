@@ -21,7 +21,6 @@ public class EmergentFormationGroup : MonoBehaviour
     public void JoinGroup(EmergentFormationVshape agent)
     {
         _agentsList.Add(agent);
-        agent.FindSlot();
     }
     public void LeaveGroup(EmergentFormationVshape agent)
     {
@@ -38,7 +37,7 @@ public class EmergentFormationGroup : MonoBehaviour
     {
         foreach (EmergentFormationVshape agent in _agentsList)
         {
-            if(agent.HasSlot() && Vector2.SqrMagnitude(agent.DesiredLocation() - position) < MinSqrDistance())
+            if(agent.IsFollower() && agent.HasSlot() && Vector2.SqrMagnitude(agent.DesiredLocation() - position) < MinSqrDistance())
             {
                 return false;
             }

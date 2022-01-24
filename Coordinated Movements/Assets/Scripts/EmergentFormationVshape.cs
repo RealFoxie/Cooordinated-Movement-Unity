@@ -42,6 +42,7 @@ public class EmergentFormationVshape : MonoBehaviour
             if (agent != this && agent.GetSlot(this))
             {
                 _agentToFollow = agent;
+                UpdateGoal();
                 return;
             }
         }
@@ -50,6 +51,9 @@ public class EmergentFormationVshape : MonoBehaviour
 
     bool GetSlot(EmergentFormationVshape agent)
     {
+        // can only assign a slot if itself has a slot (or if it is a leader and doesn't follow a slot). 
+        // Otherwise a loop of slot assignation might happen.
+        if(!HasSlot() && IsFollower()) { return false; }
         if (!_leftAgent)
         {
             if (_group.IsSlotFree(GetSlotPosition(SlotPos.left)))
@@ -131,6 +135,10 @@ public class EmergentFormationVshape : MonoBehaviour
     public bool HasSlot()
     {
         return _agentToFollow != null;
+    }
+    public bool IsFollower()
+    {
+        return _follow;
     }
     // return the location this agent is walking to.
     public Vector2 DesiredLocation()

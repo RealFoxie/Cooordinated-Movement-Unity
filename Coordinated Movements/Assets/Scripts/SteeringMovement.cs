@@ -25,10 +25,11 @@ public class SteeringMovement : MonoBehaviour
     [SerializeField] float _speedRotation = 0.2f;
 
     System.Action<Vector2, Vector2> _OnGoalChangeClb;
-    // Start is called before the first frame update
-    void Start()
+    
+    void Awake()
     {
-        
+        _goal = transform.position;
+        _goalDirection = transform.up;
     }
 
     // Update is called once per frame
