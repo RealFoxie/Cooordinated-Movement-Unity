@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8393272096614002279}
   - component: {fileID: 8393272096614002278}
   - component: {fileID: 8393272096614002297}
-  - component: {fileID: 8393272096614002296}
   - component: {fileID: -7776223284322448141}
   m_Layer: 0
   m_Name: Leader
@@ -75,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: afa4d17e5949a384e95e9b977c0e0689, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9056604, g: 0.5416874, b: 0.5416874, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -106,20 +105,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &8393272096614002296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8393272096614002299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 439e99b3154563040a66b138ce442757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainCamera: {fileID: 0}
-  _leader: {fileID: 0}
 --- !u!114 &-7776223284322448141
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,3 +6,6 @@ https://mfhooley.wordpress.com/2016/12/11/coordinated-unit-movement/ (basics)
 With potential extension of better movement via sources:  
 https://www.gamasutra.com/view/feature/3314/coordinated_unit_movement.php?print=1  
 https://www.gamedeveloper.com/programming/implementing-coordinated-movement
+
+# Fixed movement
+Unlike specified in the book, the followers have their own steering behavior to get to the lost, instead of teleporting.
