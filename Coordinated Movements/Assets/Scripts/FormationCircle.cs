@@ -11,11 +11,31 @@ using static Math;
  */
 public class FormationCircle : MonoBehaviour, IAddRemoveAgents
 {
-    [SerializeField] protected int _nrOfSlots = 5;
+    [SerializeField] private int _nrOfSlots = 5;
+    protected int NrOfSlots
+    {
+        set { 
+            _nrOfSlots = value;
+            SetSlotPositionsAgents();
+        }
+        get { return _nrOfSlots; }
+    }
     [SerializeField] protected float _distanceCenter = 5f;
+    protected float DistanceCenter
+    {
+        set
+        {
+            _distanceCenter = value;
+            SetSlotPositionsAgents();
+        }
+        get { return _distanceCenter; }
+    }
     [SerializeField] protected float AngleOffset = 0f;
     [SerializeField] protected List<SteeringMovement> _agentsList;
     [SerializeField] MouseClickingBehavior _LeaderExternalSteering;
+    // the goal and direction of the leader, which is the same as the goal for the whole formation
+    Vector2 _goal;
+    Vector2 _direction;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -45,9 +65,22 @@ public class FormationCircle : MonoBehaviour, IAddRemoveAgents
     }
     void OnLeaderUpdate(Vector2 newGoal, Vector2 newDirection)
     {
-        for(int slot = 0; slot < _nrOfSlots && slot < _agentsList.Count; ++slot)
+        _goal = newGoal; _direction = newDirection;
+        SetSlotPositionsAgents();
+    }
+
+    void UpdateGoalSlot(int slotNr)
+    {
+        if(slotNr < _agentsList.Count)
         {
-            _agentsList[slot].SetGoal(slotToPosition(slot, newGoal, newDirection), slotToDirection(slot, newGoal, newDirection));
+            _agentsList[slotNr].SetGoal(slotToPosition(slotNr, _goal, _direction), slotToDirection(slotNr, _goal, _direction));
+        }
+    }
+    void SetSlotPositionsAgents()
+    {
+        for (int slot = 0; slot < _nrOfSlots && slot < _agentsList.Count; ++slot)
+        {
+            UpdateGoalSlot(slot);
         }
     }
 
@@ -60,6 +93,7 @@ public class FormationCircle : MonoBehaviour, IAddRemoveAgents
         if (sm)
         {
             _agentsList.Add(sm);
+            UpdateGoalSlot(_agentsList.Count - 1);
         }
     }
 

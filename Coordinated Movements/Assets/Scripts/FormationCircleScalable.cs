@@ -27,9 +27,9 @@ public class FormationCircleScalable : FormationCircle
     //Update all the logic of slots so they scale. note that the placing of slots is already handeld by the class FormationCircle
     void UpdateSlots()
     {
-        _nrOfSlots = _agentsList.Count;
-        float circumference = _nrOfSlots * _distanceBetweenAgents;
-        _distanceCenter = circumference / (2 * Mathf.PI);
+        NrOfSlots = _agentsList.Count;
+        float circumference = NrOfSlots * _distanceBetweenAgents;
+        DistanceCenter = circumference / (2 * Mathf.PI);
     }
 
     public override void AddAgent(MonoBehaviour agent)

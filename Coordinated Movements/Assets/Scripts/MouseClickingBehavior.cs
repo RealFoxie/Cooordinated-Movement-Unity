@@ -36,6 +36,7 @@ public class MouseClickingBehavior : MonoBehaviour
     public void SetOnLeaderUpdateClb(System.Action<Vector2, Vector2> clb)
     {
         _OnLeaderUpdate = clb;
+        _OnLeaderUpdate(_leader.Goal, _leader.Direction);
     }
 }
 

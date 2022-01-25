@@ -361,7 +361,7 @@ MonoBehaviour:
   - {fileID: 1811718468}
   - {fileID: 1932794766}
   _LeaderExternalSteering: {fileID: 1671799874}
-  _distanceBetweenAgents: 2
+  _distanceBetweenAgents: 4
 --- !u!4 &427371323
 Transform:
   m_ObjectHideFlags: 0
