@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IAddRemoveAgents
 {
-    void AddAgent(SteeringMovement agent);
+    void AddAgent(MonoBehaviour agent);
 
     // return of the agent was present and removed
-    bool RemoveAgent(SteeringMovement agent);
+    bool RemoveAgent(MonoBehaviour agent);
 }

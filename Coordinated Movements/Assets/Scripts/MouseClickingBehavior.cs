@@ -5,13 +5,19 @@ using UnityEngine;
 /* 
  * Simple script that will move a leader agent with a SteeringMovement to the mouse click location
  * and view direction towards the mouse.
+ * Attach to camera
  */
+[RequireComponent(typeof(Camera))]
 public class MouseClickingBehavior : MonoBehaviour
 {
-    [SerializeField] Camera _mainCamera;
+    Camera _mainCamera;
     [SerializeField] SteeringMovement _leader;
     System.Action<Vector2, Vector2> _OnLeaderUpdate;
 
+    private void Awake()
+    {
+        _mainCamera = GetComponent<Camera>();
+    }
     private void Update()
     {
         // New coordinates to move to

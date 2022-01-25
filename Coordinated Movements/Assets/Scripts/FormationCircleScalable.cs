@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /*
  * Works just as Formation Circle, but with a variable amount of slots and a formation that will scale with them.
  */
-public class FormationCircleScalable : FormationCircle, IAddRemoveAgents
+public class FormationCircleScalable : FormationCircle
 {
     [SerializeField] float _distanceBetweenAgents = 2.0f;
 
@@ -15,13 +14,14 @@ public class FormationCircleScalable : FormationCircle, IAddRemoveAgents
     {
         base.Start();
         // make the amount of slots equal to amount of followers
-        _nrOfSlots = _agentsList.Count;
+        UpdateSlots();
+
     }
 
-    void Update()
+    protected override void Update()
     {
-        // clean up any removed agents
-        _agentsList = _agentsList.Where(agent => agent != null).ToList();
+        base.Update();
+        UpdateSlots();
     }
 
     //Update all the logic of slots so they scale. note that the placing of slots is already handeld by the class FormationCircle
@@ -32,18 +32,25 @@ public class FormationCircleScalable : FormationCircle, IAddRemoveAgents
         _distanceCenter = circumference / (2 * Mathf.PI);
     }
 
-    public void AddAgent(SteeringMovement agent)
+    public override void AddAgent(MonoBehaviour agent)
     {
-        _agentsList.Add(agent);
-        UpdateSlots();
+        SteeringMovement sm = agent.GetComponent<SteeringMovement>();
+        if (sm) {
+            _agentsList.Add(sm);
+            UpdateSlots();
+        }
+        
     }
 
-    public bool RemoveAgent(SteeringMovement agent)
+    public override bool RemoveAgent(MonoBehaviour agent)
     {
-        if (_agentsList.Remove(agent))
-        {
-            UpdateSlots();
-            return true;
+        SteeringMovement sm = agent.GetComponent<SteeringMovement>();
+        if (sm) {
+            if (_agentsList.Remove(sm))
+            {
+                UpdateSlots();
+                return true;
+            }
         }
         return false;
     }

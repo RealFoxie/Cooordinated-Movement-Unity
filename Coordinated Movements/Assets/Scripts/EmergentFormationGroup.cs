@@ -7,7 +7,7 @@ using UnityEngine;
  * Hence this does not include any Formation logic, but only the add/remove agent from the group.
  * 
  */
-public class EmergentFormationGroup : MonoBehaviour
+public class EmergentFormationGroup : MonoBehaviour, IAddRemoveAgents
 {
     protected List<EmergentFormationVshape> _agentsList = new List<EmergentFormationVshape>();
     [SerializeField] float _minDistanceSlots = 2f;
@@ -22,9 +22,9 @@ public class EmergentFormationGroup : MonoBehaviour
     {
         _agentsList.Add(agent);
     }
-    public void LeaveGroup(EmergentFormationVshape agent)
+    public bool LeaveGroup(EmergentFormationVshape agent)
     {
-        _agentsList.Remove(agent);
+        return _agentsList.Remove(agent);
     }
 
     public List<EmergentFormationVshape> GetGroup()
@@ -50,4 +50,16 @@ public class EmergentFormationGroup : MonoBehaviour
         return _minDistanceSlots * _minDistanceSlots;
     }
 
+    public void AddAgent(MonoBehaviour agent)
+    {
+        EmergentFormationVshape e = agent.GetComponent<EmergentFormationVshape>();
+        if (e) { JoinGroup(e); }
+    }
+
+    public bool RemoveAgent(MonoBehaviour agent)
+    {
+        EmergentFormationVshape e = agent.GetComponent<EmergentFormationVshape>();
+        if (e) { return LeaveGroup(e); }
+        return false;
+    }
 }

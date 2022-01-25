@@ -48,12 +48,16 @@ public class EmergentFormationVshape : MonoBehaviour
         }
         Debug.LogWarning("There was no free slot in the group for this agent.");
     }
-
+    public bool HasParent(EmergentFormationVshape agent)
+    {
+        return _agentToFollow != null && (_agentToFollow == agent || _agentToFollow.HasParent(agent));
+    }
     bool GetSlot(EmergentFormationVshape agent)
     {
-        // can only assign a slot if itself has a slot (or if it is a leader and doesn't follow a slot). 
-        // Otherwise a loop of slot assignation might happen.
-        if(!HasSlot() && IsFollower()) { return false; }
+        // can only assign a slot if itself has a slot (or if it is a leader and doesn't follow a slot).
+        // And if this agent doesn not follow the given agent (even in proxy)
+        // Otherwise an infinite loop of slot assignation might happen.
+        if((!HasSlot() && IsFollower()) || HasParent(agent)) { return false; }
         if (!_leftAgent)
         {
             if (_group.IsSlotFree(GetSlotPosition(SlotPos.left)))
@@ -150,5 +154,47 @@ public class EmergentFormationVshape : MonoBehaviour
     public Vector2 DesiredDirection()
     {
         return _steering.Direction;
+    }
+
+    // the agent to follow asked to leave its slot.
+    // Leave the slot, search a new one and let your slot owners know to search a new slot too,
+    // As the new location for this agent might not have any valid slots anymore.
+    public void RemoveAgentFromSlot(EmergentFormationVshape agent)
+    {
+        if(_agentToFollow == agent)
+        {
+            _agentToFollow = null;
+            VacateSlots();
+            FindSlot();
+        }
+    }
+
+    private void VacateSlots()
+    {
+        if (_leftAgent) { _leftAgent.RemoveAgentFromSlot(this);}
+        if (_rightAgent) { _rightAgent.RemoveAgentFromSlot(this); }
+        _leftAgent = null;
+        _rightAgent = null;
+    }
+
+    // an agent left a slot
+    public void LeaveSlot(EmergentFormationVshape agent)
+    {
+        if(_leftAgent == agent)
+        {
+            _leftAgent = null;
+        }
+        if(_rightAgent == agent)
+        {
+            _rightAgent = null;
+        }
+    }
+
+    // remove itself from the slot it occupied and let its slot owners know to search for a new one
+    private void OnDestroy()
+    {
+        if (_agentToFollow) { _agentToFollow.LeaveSlot(this); }
+        VacateSlots();
+
     }
 }

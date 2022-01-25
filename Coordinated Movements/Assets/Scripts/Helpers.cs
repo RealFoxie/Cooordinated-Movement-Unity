@@ -10,7 +10,7 @@ public static class Math
 
     public static Vector2 AngleToVec(float angleInRad)
     {
-        return new Vector2(Mathf.Sin(angleInRad), Mathf.Cos(angleInRad));
+        return new Vector2(Mathf.Sin(angleInRad), Mathf.Cos(angleInRad)).normalized;
     }
 }
 
