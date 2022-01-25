@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5065758302687991109}
   - component: {fileID: 8533438357935462529}
   - component: {fileID: 6525674056321397203}
-  - component: {fileID: 6890357753860937532}
   - component: {fileID: -1354503207641844639}
+  - component: {fileID: 6890357753860937532}
   - component: {fileID: 8956388110813258744}
   m_Layer: 0
   m_Name: Follower
@@ -107,6 +107,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &-1354503207641844639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061059914053956351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa497174277999046a5b25391504a440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6890357753860937532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,18 +133,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _speedRotation: 1
---- !u!114 &-1354503207641844639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061059914053956351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa497174277999046a5b25391504a440, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &8956388110813258744
 CircleCollider2D:
   m_ObjectHideFlags: 0

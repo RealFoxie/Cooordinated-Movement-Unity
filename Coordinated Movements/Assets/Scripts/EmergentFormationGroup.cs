@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 /*
  * Used for Emergent Formation. This will keep track of the group that should position themselves via Emergent logic.
@@ -12,10 +13,16 @@ public class EmergentFormationGroup : MonoBehaviour, IAddRemoveAgents
     protected List<EmergentFormationVshape> _agentsList = new List<EmergentFormationVshape>();
     [SerializeField] float _minDistanceSlots = 2f;
 
-    // Update is called once per frame
+    // Scramble list when pushing a key. Note: this is not really part of the formation
+    // But for demonstration purposes
     void Update()
     {
-        
+        // New coordinates to move to
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Debug.Log("Randomized list of Emergent Formation Group.");
+            _agentsList.Shuffle();
+        }
     }
 
     public void JoinGroup(EmergentFormationVshape agent)
@@ -53,7 +60,10 @@ public class EmergentFormationGroup : MonoBehaviour, IAddRemoveAgents
     public void AddAgent(MonoBehaviour agent)
     {
         EmergentFormationVshape e = agent.GetComponent<EmergentFormationVshape>();
-        if (e) { JoinGroup(e); }
+        if (e) { 
+            JoinGroup(e);
+            e.Group = this;
+        }
     }
 
     public bool RemoveAgent(MonoBehaviour agent)
